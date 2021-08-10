@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from matchFinder.models import *
 from rest_framework import status
 from rest_framework.views import APIView
+from matchFinder.load_sample_data import *
 
 
 def find_candidates(request: APIView, job_id: int) -> list[Candidate]:
@@ -68,8 +69,6 @@ def create_match_dict(requirements: JobRequirements, matching_title_candidates: 
 
 
 def index(request):
-    j = Job.objects.get(id=1)
-    ans = find_candidates("", j.id)
-    return ans
-
+    load_sample()
+    return HttpResponse("Welcome to matchFinder. pleas enter job_id into the url : /matchFinder/2 for example.")
 
